@@ -1,0 +1,27 @@
+{{> include/header}}
+<h1>TD2 Spring</h1>
+<p>Application de messagerie</p>
+
+<button class="ui inverted green button" onclick="window.location.href='/orgas/newOrga'">Ajouter une organisation</button>
+
+<table class="ui inverted celled table">
+  <thead>
+    <tr><th>Id</th>
+    <th>Name</th>
+    <th>Domain</th>
+    <th>Aliases</th>
+  </tr></thead>
+  <tbody>
+  {{#organizations}}
+    <tr>
+      <td data-label="Id">{{id}}</td>
+      <td data-label="Name">{{nom}}</td>
+      <td data-label="Domain">{{domain}}</td>
+      <td data-label="Aliases">{{aliases}}</td>
+    </tr>
+    {{/organizations}}
+  </tbody>
+</table>
+
+
+{{> include/footer}}
