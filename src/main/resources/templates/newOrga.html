@@ -1,15 +1,29 @@
 {{> include/header}}
-<br>
-<form class="ui form" method="post" action="addNewOrga.html" style="width:30vh;">
-  <div class="field">
-    <label>Name</label>
-    <input type="text" name="nom" placeholder="Name">
-    <label>Domain</label>
-    <input type="text" name="domain" placeholder="Domain">
-    <label>Aliases</label>
-    <input type="text" name="aliases" placeholder="Aliases">
-  </div>
-  <button class="ui inverted blue button" type="submit">Submit</button>
-</form>
-  
+
+<h1>Ajout d'une organisation :</h1>
+<form class="ui small inverted column centered form" method="post" action="/orga/addNew/">
+	<div class="two fields">
+		<div class="three wide field">
+			<label>Name :</label>
+			<input type="text" name="name" placeholder="Name">
+		</div>
+		<div class="two wide field">
+			<label>Domain :</label>
+			<input type="text" name="domain" placeholder="Domain">
+		</div>
+	</div>
+	<div class="five wide field">
+		<label>Aliases :</label>
+		<input type="text" name="aliases" placeholder="Aliases">
+	</div>
+	<div class="five wide field">
+		<label>Organization settings :</label>
+		<input type="text" name="organizationsettings" placeholder="Organization settings">
+	</div>
+	<button class="ui inverted green button" type="submit"><i class="plus icon"></i>Submit</button>
+  	<button class="ui inverted red button" type="reset"><i class="undo icon"></i>Cancel</button>
+</form><br>
+
+<button style="width:10em;" class="ui inverted blue button" onclick="window.location='/orga/';"><i class="arrow left icon"></i>Go back</button>
+
 {{> include/footer}}

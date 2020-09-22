@@ -1,0 +1,33 @@
+{{> include/header}}
+
+<h1>Ogranization editor :</h1>
+<form class="ui small inverted column centered form" method="post" action="/orga/editOrga/">
+	<div class="three fields">
+		<div class="one wide field">
+    		<label>Id :</label>
+    		<input name="id" readonly="" value={{id}}>
+  		</div>
+		<div class="two wide field">
+    		<label>Name :</label>
+    		<input type="text" name="name" placeholder="Name">
+  		</div>
+  		<div class="two wide field">
+    		<label>Domain :</label>
+    		<input type="text" name="domain" placeholder="Domain">
+    	</div>
+    </div>
+    <div class="five wide field">
+    	<label>Aliases :</label>
+    	<input type="text" name="aliases" placeholder="Domain">
+    </div>
+    <div class="five wide field">
+		<label>Organization settings :</label>
+		<input type="text" name="organizationsettings" placeholder="Organization settings">
+	</div>
+  	<button class="ui inverted green button" type="submit"><i class="plus icon"></i>Submit</button>
+  	<button class="ui inverted red button" type="reset"><i class="undo icon"></i>Cancel</button>
+</form><br>
+
+<button style="width:10em;" class="ui inverted blue button" onclick="window.location='/orga/';"><i class="arrow left icon"></i>Go back</button>
+
+{{> include/footer}}

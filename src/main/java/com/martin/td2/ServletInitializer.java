@@ -1,4 +1,4 @@
-package com.garwalle.td2;
+package com.martin.td2;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

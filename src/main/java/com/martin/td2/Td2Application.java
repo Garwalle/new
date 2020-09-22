@@ -1,4 +1,4 @@
-package com.garwalle.td2;
+package com.martin.td2;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,0 +1,38 @@
+{{> include/header}}
+
+{{#organization}}
+<h1>Organization : {{name}}</h1>
+
+<table class="ui inverted celled fixed table">
+	<tbody>
+		<tr>
+			<td class="black">Id</td>
+			<td>{{id}}</td>
+		</tr>
+		<tr>
+			<td class="black">Name</td>
+			<td>{{name}}</td>
+		</tr>
+		<tr>
+			<td class="black">Domain</td>
+			<td>{{#domain}}{{.}}{{/domain}}</td>
+		</tr>
+		<tr>
+			<td class="black">Group</td>
+			<td>{{#aliases}}{{.}}{{/aliases}}</td>
+		</tr>
+		<tr>
+			<td class="black">Organizationsettings</td>
+			<td>{{#organizationsettings}}{{.}}{{/organizationsettings}}</td>
+		</tr>
+		<tr>
+			<td class="black">Users</td>
+			<td>{{#users}}{{.}}{{/users}}</td>
+		</tr>
+	</tbody>
+</table>
+
+<button style="width:10em;" class="ui inverted blue button" onclick="window.location='/orga/';"><i class="arrow left icon"></i>Go back</button>
+{{/organization}}
+
+{{> include/footer}}
