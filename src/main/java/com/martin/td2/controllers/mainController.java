@@ -31,9 +31,14 @@ public class mainController {
 	private UserRepository userRepo;
 	
 	@GetMapping(value={"","index"})
-    public String index(ModelMap model) {
+	public String index(Model model, @Param("keyword") String keyword) {
+		if (keyword != null) {
+			List<Organization> organizations = orgaRepo.search(keyword);
+			model.addAttribute("organizations", organizations);
+			return "index";
+		}
 		List<Organization> organizations = orgaRepo.findAll();
-		model.put("organizations", organizations);
+		model.addAttribute("organizations", organizations);
 		return "index";
 	}
 	
@@ -65,9 +70,9 @@ public class mainController {
 			user.setFirstName(userName);
 			user.setOrganization(optional.get());
 			userRepo.saveAndFlush(user);
-			return user + " ajoutée";
+			return user + " ajoutée !";
 		}
-		return "Organisation " + orgaName + " inexistante !";
+		return "Organization " + orgaName + " don't exist !";
 	}
 	
 	@GetMapping("display/{id}")

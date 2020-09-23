@@ -1,0 +1,198 @@
+warning: LF will be replaced by CRLF in src/main/java/com/martin/td2/controllers/mainController.java.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/java/com/martin/td2/repositories/OrgaRepository.java.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/templates/editOrga.html.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/templates/include/header.html.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/templates/index.html.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in src/main/resources/templates/newOrga.html.
+The file will have its original line endings in your working directory
+[1mdiff --git a/src/main/java/com/martin/td2/controllers/mainController.java b/src/main/java/com/martin/td2/controllers/mainController.java[m
+[1mindex e641948..deb013e 100644[m
+[1m--- a/src/main/java/com/martin/td2/controllers/mainController.java[m
+[1m+++ b/src/main/java/com/martin/td2/controllers/mainController.java[m
+[36m@@ -31,9 +31,14 @@[m [mpublic class mainController {[m
+ 	private UserRepository userRepo;[m
+ 	[m
+ 	@GetMapping(value={"","index"})[m
+[31m-    public String index(ModelMap model) {[m
+[32m+[m	[32mpublic String index(Model model, @Param("keyword") String keyword) {[m
+[32m+[m		[32mif (keyword != null) {[m
+[32m+[m			[32mList<Organization> organizations = orgaRepo.search(keyword);[m
+[32m+[m			[32mmodel.addAttribute("organizations", organizations);[m
+[32m+[m			[32mreturn "index";[m
+[32m+[m		[32m}[m
+ 		List<Organization> organizations = orgaRepo.findAll();[m
+[31m-		model.put("organizations", organizations);[m
+[32m+[m		[32mmodel.addAttribute("organizations", organizations);[m
+ 		return "index";[m
+ 	}[m
+ 	[m
+[36m@@ -65,9 +70,9 @@[m [mpublic class mainController {[m
+ 			user.setFirstName(userName);[m
+ 			user.setOrganization(optional.get());[m
+ 			userRepo.saveAndFlush(user);[m
+[31m-			return user + " ajoutée";[m
+[32m+[m			[32mreturn user + " ajoutée !";[m
+ 		}[m
+[31m-		return "Organisation " + orgaName + " inexistante !";[m
+[32m+[m		[32mreturn "Organization " + orgaName + " don't exist !";[m
+ 	}[m
+ 	[m
+ 	@GetMapping("display/{id}")[m
+[1mdiff --git a/src/main/java/com/martin/td2/repositories/OrgaRepository.java b/src/main/java/com/martin/td2/repositories/OrgaRepository.java[m
+[1mindex 465cd03..a0aada9 100644[m
+[1m--- a/src/main/java/com/martin/td2/repositories/OrgaRepository.java[m
+[1m+++ b/src/main/java/com/martin/td2/repositories/OrgaRepository.java[m
+[36m@@ -4,6 +4,7 @@[m [mimport java.util.List;[m
+ import java.util.Optional;[m
+ [m
+ import org.springframework.data.jpa.repository.JpaRepository;[m
+[32m+[m[32mimport org.springframework.data.jpa.repository.Query;[m
+ [m
+ import com.martin.td2.models.Organization;[m
+ [m
+[36m@@ -11,12 +12,16 @@[m [mpublic interface OrgaRepository extends JpaRepository<Organization, Integer> {[m
+ 	// Find[m
+ 	List<Organization> findAll();[m
+ 	List<Organization> findByDomain(String domain);[m
+[32m+[m	[32mpublic Optional<Organization> findByName(String name);[m
+ 	Organization findById(int id);[m
+ 	[m
+[32m+[m	[32m@Query("SELECT o FROM Organization o WHERE o.name LIKE %?1% OR o.domain LIKE %?1% OR o.aliases LIKE %?1%")[m
+[32m+[m	[32mpublic List<Organization> search(String keyword);[m
+[32m+[m[41m	[m
+[32m+[m[41m	[m
+ 	// Delete[m
+ 	List<Organization> deleteById(int id);[m
+ 	    [m
+ 	    [m
+[31m-	    public Optional<Organization> findByName(String name);[m
+ 	    [m
+ }[m
+[1mdiff --git a/src/main/resources/templates/editOrga.html b/src/main/resources/templates/editOrga.html[m
+[1mindex 7b6e8ec..781fea8 100644[m
+[1m--- a/src/main/resources/templates/editOrga.html[m
+[1m+++ b/src/main/resources/templates/editOrga.html[m
+[36m@@ -9,7 +9,7 @@[m
+   		</div>[m
+ 		<div class="two wide field">[m
+     		<label>Name :</label>[m
+[31m-    		<input type="text" name="name" placeholder="Name">[m
+[32m+[m[41m    [m		[32m<input type="text" name="name" placeholder="Name" required>[m
+   		</div>[m
+   		<div class="two wide field">[m
+     		<label>Domain :</label>[m
+[1mdiff --git a/src/main/resources/templates/include/header.html b/src/main/resources/templates/include/header.html[m
+[1mindex 6865e52..8cb730e 100644[m
+[1m--- a/src/main/resources/templates/include/header.html[m
+[1m+++ b/src/main/resources/templates/include/header.html[m
+[36m@@ -11,7 +11,7 @@[m
+ 	 [m
+     <script type="text/javascript">[m
+     	$(document).ready(function(){[m
+[31m-[m
+[32m+[m[41m    		[m
+     	});[m
+     </script>[m
+ </head>[m
+[1mdiff --git a/src/main/resources/templates/index.html b/src/main/resources/templates/index.html[m
+[1mindex 47153af..2ba7668 100644[m
+[1m--- a/src/main/resources/templates/index.html[m
+[1m+++ b/src/main/resources/templates/index.html[m
+[36m@@ -1,42 +1,43 @@[m
+ {{> include/header}}[m
+ <h1><i class="broadcast tower icon"></i>SpringBoot TD2 :</h1><br>[m
+ [m
+[31m-[m
+ <table class="ui inverted fixed table">[m
+ 	<thead>[m
+[31m-    	<tr><th>Id</th>[m
+[31m-    	<th>Name</th>[m
+[31m-    	<th>Domain</th>[m
+[31m-    	<th>Aliases</th>[m
+[31m-  		</tr>[m
+[31m-  	</thead>[m
+[31m- 	<tbody>[m
+[31m-  	{{#organizations}}[m
+[31m-    <tr>[m
+[31m-    	<td data-label="Id">{{id}}</td>[m
+[31m-    	<td data-label="Name">{{name}}</td>[m
+[31m-    	<td data-label="Domain">{{#domain}}{{.}}{{/domain}}</td>[m
+[31m-    	<td class="flex" data-label="Aliases"><div>{{#aliases}}{{.}}{{/aliases}}</div>[m
+[31m-    		<div class="end">[m
+[31m-      			<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}';"><i class="hand point up outline icon"></i></button>[m
+[31m-      			<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';"><i class="pen icon"></i></button>[m
+[31m-      			<button class="circular ui small icon inverted red button"  onclick="window.location='/orga/delete/{{id}}';"><i class="close icon"></i></button>[m
+[31m-      		</div>[m
+[31m-      	</td>[m
+[31m-    </tr>[m
+[31m-    {{/organizations}}[m
+[31m-  </tbody> [m
+[31m-   <tfoot class="full-width">[m
+[31m-    <tr>[m
+[31m-      <th>[m
+[31m-      <div class="ui search right floated">[m
+[31m-      	<div class="ui icon input"><input class="prompt" type="text" placeholder="Search organization"><i class="search icon"></i></div><div class="results"></div>[m
+[31m-      </div>[m
+[31m-      </th>[m
+[31m-      <th colspan="3">[m
+[31m-        <button class="ui inverted green right floated button"  onclick="window.location='/orga/new';"><i class="plus icon"></i>New organization</button>[m
+[31m-      </th>[m
+[31m-    </tr>[m
+[31m-  </tfoot>[m
+[32m+[m		[32m<tr><th>Id</th>[m
+[32m+[m		[32m<th>Name</th>[m
+[32m+[m		[32m<th>Domain</th>[m
+[32m+[m		[32m<th>Aliases</th>[m
+[32m+[m		[32m</tr>[m
+[32m+[m	[32m</thead>[m
+[32m+[m	[32m<tbody>[m
+[32m+[m	[32m{{#organizations}}[m
+[32m+[m	[32m<tr>[m
+[32m+[m		[32m<td data-label="Id">{{id}}</td>[m
+[32m+[m		[32m<td data-label="Name">{{name}}</td>[m
+[32m+[m		[32m<td data-label="Domain">{{#domain}}{{.}}{{/domain}}</td>[m
+[32m+[m		[32m<td class="flex" data-label="Aliases"><div>{{#aliases}}{{.}}{{/aliases}}</div>[m
+[32m+[m			[32m<div class="end">[m
+[32m+[m				[32m<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}';"><i class="hand point up outline icon"></i></button>[m
+[32m+[m				[32m<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';"><i class="pen icon"></i></button>[m
+[32m+[m				[32m<button class="circular ui small icon inverted red button"  onclick="window.location='/orga/delete/{{id}}';"><i class="close icon"></i></button>[m
+[32m+[m			[32m</div>[m
+[32m+[m		[32m</td>[m
+[32m+[m	[32m</tr>[m
+[32m+[m	[32m{{/organizations}}[m
+[32m+[m	[32m</tbody>[m[41m [m
+[32m+[m	[32m<tfoot class="full-width">[m
+[32m+[m		[32m<tr>[m
+[32m+[m			[32m<th>[m
+[32m+[m				[32m<form action="/orga/">[m
+[32m+[m					[32m<div class="ui icon input">[m
+[32m+[m						[32m<i class="search icon"></i> <input class="search" type="text" placeholder="Search" name="keyword">[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</form>[m
+[32m+[m			[32m</th>[m
+[32m+[m			[32m<th colspan="3">[m
+[32m+[m				[32m<button class="ui inverted green right floated button"  onclick="window.location='/orga/new';"><i class="plus icon"></i>New organization</button>[m
+[32m+[m			[32m</th>[m
+[32m+[m		[32m</tr>[m
+[32m+[m	[32m</tfoot>[m
+ </table>[m
+ {{> include/footer}}[m
+\ No newline at end of file[m
+[1mdiff --git a/src/main/resources/templates/newOrga.html b/src/main/resources/templates/newOrga.html[m
+[1mindex c56b71a..9fcc6f9 100644[m
+[1m--- a/src/main/resources/templates/newOrga.html[m
+[1m+++ b/src/main/resources/templates/newOrga.html[m
+[36m@@ -5,7 +5,7 @@[m
+ 	<div class="two fields">[m
+ 		<div class="three wide field">[m
+ 			<label>Name :</label>[m
+[31m-			<input type="text" name="name" placeholder="Name">[m
+[32m+[m			[32m<input type="text" name="name" placeholder="Name" required>[m
+ 		</div>[m
+ 		<div class="two wide field">[m
+ 			<label>Domain :</label>[m

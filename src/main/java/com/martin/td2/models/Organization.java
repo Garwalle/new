@@ -70,10 +70,6 @@ public class Organization {
 	public void setAliases(String aliases) {
 		this.aliases = aliases;
 	}
-	@Override
-	public String toString() {
-		return "Organization [name=" + name + ", users=" + users + "]";
-	}
 
 	public String getOrganizationsettings() {
 		return organizationsettings;
@@ -81,5 +77,10 @@ public class Organization {
 
 	public void setOrganizationsettings(String organizationsettings) {
 		this.organizationsettings = organizationsettings;
+	}
+	
+	@Override
+	public String toString() {
+		return "Organization [name=" + name + ", users=" + users + "]";
 	}
 }
