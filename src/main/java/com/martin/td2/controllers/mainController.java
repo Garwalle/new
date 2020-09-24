@@ -3,6 +3,8 @@ package com.martin.td2.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -16,13 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.martin.td2.models.Groupe;
 import com.martin.td2.models.Organization;
 import com.martin.td2.models.User;
+import com.martin.td2.repositories.GroupeRepository;
 import com.martin.td2.repositories.OrgaRepository;
 import com.martin.td2.repositories.UserRepository;
 
 @Controller
-@RequestMapping("/orga/")
+@RequestMapping("/orga")
 public class mainController {
 	@Autowired
 	private OrgaRepository orgaRepo;
@@ -30,7 +34,10 @@ public class mainController {
 	@Autowired
 	private UserRepository userRepo;
 	
-	@GetMapping(value={"","index"})
+	@Autowired
+	private GroupeRepository groupeRepo;
+	
+	@GetMapping(value={"","/","index"})
 	public String index(Model model, @Param("keyword") String keyword) {
 		if (keyword != null) {
 			List<Organization> organizations = orgaRepo.search(keyword);
@@ -38,7 +45,9 @@ public class mainController {
 			return "index";
 		}
 		List<Organization> organizations = orgaRepo.findAll();
+		List<User> users = userRepo.findAll();
 		model.addAttribute("organizations", organizations);
+		model.addAttribute("users", users);
 		return "index";
 	}
 	
@@ -84,7 +93,8 @@ public class mainController {
 	
 	@GetMapping("edit/{id}")
 	public String edit(ModelMap model,@PathVariable int id) {
-		model.put("id", id);
+		Organization organization = orgaRepo.findById(id);
+		model.put("organization", organization);
 		return "editOrga";
 	}
 	
@@ -100,10 +110,21 @@ public class mainController {
 		return new RedirectView("../");
 	}
 	
+	@Transactional
 	@GetMapping("delete/{id}")
 	public RedirectView delete(@PathVariable int id) {
 		Organization organization = orgaRepo.findById(id);
 		if((organization != null)) {
+			List<User> users = userRepo.findByOrganization(organization);
+			if(users.size()>0)
+			{
+				userRepo.updateUserSetOrganization(organization);
+			}
+			List<Groupe> groupes = groupeRepo.findByOrganization(organization);
+			if(groupes.size()>0)
+			{
+				groupeRepo.updateGroupeSetOrganization(organization);
+			}
 			orgaRepo.deleteById(id);
 		}
 		return new RedirectView("../");

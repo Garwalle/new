@@ -1,0 +1,90 @@
+[33mcommit eb6a8d8aa3233f22eab840c5af03dc4bf37cca4f[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 16:54:27 2020 +0200
+
+    Change in editOrga.java, now, when edditing a Organization the page while show the current value in the database of the organization selected.
+
+[33mcommit 8e00ae21637ab9628ed1604a80171e492d66fd80[m
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 16:52:30 2020 +0200
+
+     a very small modificaton of index.html et style.css. Added of buttons on displayOrga to add an other organization or delete/edit the orga displayed (that include to import the prevent message before deleting an organization to displayOrga.) Change of the fonctionnement of the "go back" button now go to the previous link of the website user by looking in his history.
+
+[33mcommit cd40408f3a2be5e7f3bc6b394c2598247d5294a4[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: a4707dc 0264485
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 13:22:01 2020 +0200
+
+    Merge branch 'master' of https://github.com/Garwalle/td2-Martin_Jeanne into master
+
+[33mcommit a4707dc35f3b10a8c2990cd112e3ae5892744a3b[m
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 12:02:45 2020 +0200
+
+    adding a preventif message coded in javascript before deleting orga
+
+[33mcommit 02644859f6ebd21cdb6d630404f06ecb5fab80a3[m
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 12:02:45 2020 +0200
+
+    commlit
+
+[33mcommit 9334247b4fa0540db1e1da986a5d04fde420fa4a[m
+Author: Martin Jeanne <mjeanne@sio.local>
+Date:   Thu Sep 24 08:30:53 2020 +0200
+
+    supression of a duplicate package
+
+[33mcommit 4b2b11a73e4c6a6de4bbe5d0f0716cf0281022fa[m
+Merge: 27ec77d 22f6f5d
+Author: Garwalle <46488898+Garwalle@users.noreply.github.com>
+Date:   Wed Sep 23 17:28:31 2020 +0200
+
+    Merge pull request #1 from slams-2020/master
+    
+    Merge pull request #1 from Garwalle/master
+
+[33mcommit 27ec77d0886d3d37eed74b805e7722694d2fbfe8[m
+Author: Garwalle <46488898+Garwalle@users.noreply.github.com>
+Date:   Wed Sep 23 11:55:48 2020 +0200
+
+    Update README.md
+
+[33mcommit 386cbabd78b631cdc08005e33447bf59c697b2fe[m
+Author: Garwalle <46488898+Garwalle@users.noreply.github.com>
+Date:   Wed Sep 23 11:55:29 2020 +0200
+
+    Update README.md
+
+[33mcommit 22f6f5d21ec53bdc34d60a09b15862c60b763918[m
+Merge: 257574a 1c03e49
+Author: Garwalle <46488898+Garwalle@users.noreply.github.com>
+Date:   Wed Sep 23 11:53:49 2020 +0200
+
+    Merge pull request #1 from Garwalle/master
+    
+    Merging from Garwalle/td2-Martin_Jeanne
+
+[33mcommit 1c03e492b6fb843acba2a12b3702f76923b60432[m
+Author: Garwalle <46488898+Garwalle@users.noreply.github.com>
+Date:   Wed Sep 23 11:43:07 2020 +0200
+
+    Add of a README.md
+
+[33mcommit 6afcad8050ec77c5f932bb325f6c21b24eb86bcd[m
+Author: Garwalle <martin.jeanne@sts-sio-caen.info>
+Date:   Wed Sep 23 11:39:31 2020 +0200
+
+    Change some random french to english. Add the fonctionnality search that include a modification of : mainControllers, orgaRepository, index.htm. Also set the input "name" in editOrga and newOrga as "required"
+
+[33mcommit 257574aae4f6f71e793455946431735bcd426b6a[m
+Author: Garwalle <martin.jeanne@sts-sio-caen.info>
+Date:   Tue Sep 22 23:42:45 2020 +0200
+
+    commit 2
+
+[33mcommit 0208eb5f4b70787e53ee0064de967952c6786655[m
+Author: Martin <martin.jeanne@sts-sio-caen.info>
+Date:   Mon Sep 21 23:01:00 2020 +0200
+
+    Premier commit

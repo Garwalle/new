@@ -1,0 +1,84 @@
+[1mdiff --git a/src/main/java/com/martin/td2/controllers/mainController.java b/src/main/java/com/martin/td2/controllers/mainController.java[m
+[1mindex deb013e..6d2cc42 100644[m
+[1m--- a/src/main/java/com/martin/td2/controllers/mainController.java[m
+[1m+++ b/src/main/java/com/martin/td2/controllers/mainController.java[m
+[36m@@ -3,6 +3,8 @@[m [mpackage com.martin.td2.controllers;[m
+ import java.util.List;[m
+ import java.util.Optional;[m
+ [m
+[32m+[m[32mimport javax.transaction.Transactional;[m
+[32m+[m
+ import org.springframework.beans.factory.annotation.Autowired;[m
+ import org.springframework.data.repository.query.Param;[m
+ import org.springframework.stereotype.Controller;[m
+[36m@@ -16,13 +18,15 @@[m [mimport org.springframework.web.bind.annotation.RequestParam;[m
+ import org.springframework.web.bind.annotation.ResponseBody;[m
+ import org.springframework.web.servlet.view.RedirectView;[m
+ [m
+[32m+[m[32mimport com.martin.td2.models.Groupe;[m
+ import com.martin.td2.models.Organization;[m
+ import com.martin.td2.models.User;[m
+[32m+[m[32mimport com.martin.td2.repositories.GroupeRepository;[m
+ import com.martin.td2.repositories.OrgaRepository;[m
+ import com.martin.td2.repositories.UserRepository;[m
+ [m
+ @Controller[m
+[31m-@RequestMapping("/orga/")[m
+[32m+[m[32m@RequestMapping("/orga")[m
+ public class mainController {[m
+ 	@Autowired[m
+ 	private OrgaRepository orgaRepo;[m
+[36m@@ -30,7 +34,10 @@[m [mpublic class mainController {[m
+ 	@Autowired[m
+ 	private UserRepository userRepo;[m
+ 	[m
+[31m-	@GetMapping(value={"","index"})[m
+[32m+[m	[32m@Autowired[m
+[32m+[m	[32mprivate GroupeRepository groupeRepo;[m
+[32m+[m[41m	[m
+[32m+[m	[32m@GetMapping(value={"","/","index"})[m
+ 	public String index(Model model, @Param("keyword") String keyword) {[m
+ 		if (keyword != null) {[m
+ 			List<Organization> organizations = orgaRepo.search(keyword);[m
+[36m@@ -38,7 +45,9 @@[m [mpublic class mainController {[m
+ 			return "index";[m
+ 		}[m
+ 		List<Organization> organizations = orgaRepo.findAll();[m
+[32m+[m		[32mList<User> users = userRepo.findAll();[m
+ 		model.addAttribute("organizations", organizations);[m
+[32m+[m		[32mmodel.addAttribute("users", users);[m
+ 		return "index";[m
+ 	}[m
+ 	[m
+[36m@@ -84,7 +93,8 @@[m [mpublic class mainController {[m
+ 	[m
+ 	@GetMapping("edit/{id}")[m
+ 	public String edit(ModelMap model,@PathVariable int id) {[m
+[31m-		model.put("id", id);[m
+[32m+[m		[32mOrganization organization = orgaRepo.findById(id);[m
+[32m+[m		[32mmodel.put("organization", organization);[m
+ 		return "editOrga";[m
+ 	}[m
+ 	[m
+[36m@@ -100,10 +110,21 @@[m [mpublic class mainController {[m
+ 		return new RedirectView("../");[m
+ 	}[m
+ 	[m
+[32m+[m	[32m@Transactional[m
+ 	@GetMapping("delete/{id}")[m
+ 	public RedirectView delete(@PathVariable int id) {[m
+ 		Organization organization = orgaRepo.findById(id);[m
+ 		if((organization != null)) {[m
+[32m+[m			[32mList<User> users = userRepo.findByOrganization(organization);[m
+[32m+[m			[32mif(users.size()>0)[m
+[32m+[m			[32m{[m
+[32m+[m				[32muserRepo.updateUserSetOrganization(organization);[m
+[32m+[m			[32m}[m
+[32m+[m			[32mList<Groupe> groupes = groupeRepo.findByOrganization(organization);[m
+[32m+[m			[32mif(groupes.size()>0)[m
+[32m+[m			[32m{[m
+[32m+[m				[32mgroupeRepo.updateGroupeSetOrganization(organization);[m
+[32m+[m			[32m}[m
+ 			orgaRepo.deleteById(id);[m
+ 		}[m
+ 		return new RedirectView("../");[m
