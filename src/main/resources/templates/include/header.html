@@ -11,8 +11,19 @@
 	 
     <script type="text/javascript">
     	$(document).ready(function(){
-    		
+    		$('.message .close').on('click', function() {
+    			$(this).closest('.message').transition('fade');
+    		});
     	});
+    	function hideConfirm() {
+    		document.getElementById("messageConfirmDelete").style.display = "none";
+    	}
+
+    	function confirmDelete(name, id) {
+    		document.getElementById("messageConfirmDelete").style.display = "block";
+    		document.getElementById("confirmDeletingButton").onclick = function() { window.location = "/orga/delete/" + id; };
+    		document.getElementById("name").innerHTML = name;
+    	}
     </script>
 </head>
 <body>
