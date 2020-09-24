@@ -25,3 +25,11 @@ form button {
 #idInput {
 	color: #ababab;
 }
+
+.bold {
+	font-weight: bold;
+}
+
+.noborder td { 
+	border-top: 0px !important; 
+}

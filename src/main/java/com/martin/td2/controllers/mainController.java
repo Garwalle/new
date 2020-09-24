@@ -57,8 +57,8 @@ public class mainController {
 	}
 	
 	@PostMapping("addNew/")
-	public RedirectView addOrga(@RequestParam String name,@RequestParam String domain,@RequestParam String aliases,@RequestParam String organizationsettings) {
-		Organization orga = new Organization(name,domain,aliases,organizationsettings);
+	public RedirectView addOrga(@RequestParam String name,@RequestParam String domain,@RequestParam String aliases) {
+		Organization orga = new Organization(name,domain,aliases);
 		orgaRepo.saveAndFlush(orga);
 		return new RedirectView("/orga/");
 	}

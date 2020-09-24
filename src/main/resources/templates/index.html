@@ -40,16 +40,50 @@
 		</tr>
 	</tfoot>
 </table>
+</td>
+</tr>
+<tr class="noborder">
+<td colspan="3">
+<table class="ui basic compact inverted fixed table">
+	<thead>
+		<tr>
+			<td class="bold">test</td>
+			<td class="bold">test</td>
+			<td class="bold">test</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		<tr>
+			<td>test</td>
+			<td>test</td>
+			<td>test</td>
+		</tr>
+		<tr>
+			<td>test</td>
+			<td>test</td>
+			<td>test</td>
+		</tr>
+	</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
 <div style="display:none; width:60vh;" id="messageConfirmDelete">
-	<div class="ui icon negative message">
+	<div class="ui icon red message">
 		<i class="close icon" onclick="hideConfirm()"></i>
 		<i class="dizzy outline icon"></i>
 		<div class="content">
 			<div class="header">Are you sure ?</div>
 			<p>Are you sure you want to delete <b id="name">'?</b></p>
 			<div class="end">
-				<button onclick="hideConfirm()" class="ui button"><i class="circle outline icon"></i>No</button>
-				<button id="confirmDeletingButton" class="ui red button"><i class="check circle icon"></i>Yes</button>
+				<button onclick="hideConfirm()" class="ui inverted secondary button"><i class="circle outline icon"></i>No</button>
+				<button id="confirmDeletingButton" class="ui inverted red button"><i class="check circle icon"></i>Yes</button>
 			</div>
 		</div>
 	</div>

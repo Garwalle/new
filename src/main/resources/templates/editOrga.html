@@ -15,16 +15,16 @@
   		</div>
   		<div class="two wide field">
     		<label>Domain :</label>
-    		<input type="text" name="domain" placeholder="Domain" value="{{domain}}">
+    		<input type="text" name="domain" placeholder="Domain" value="{{#domain}}{{.}}{{/domain}}">
     	</div>
     </div>
     <div class="five wide field">
     	<label>Aliases :</label>
-    	<input type="text" name="aliases" placeholder="Aliases" value="{{aliases}}">
+    	<input type="text" name="aliases" placeholder="Aliases" value="{{#aliases}}{{.}}{{/aliases}}">
     </div>
     <div class="five wide field">
 		<label>Organization settings :</label>
-		<input type="text" name="organizationsettings" placeholder="Organization settings" value="{{organizationsettings}}">
+		<input type="text" name="organizationsettings" placeholder="Organization settings" value="{{#organizationsettings}}{{.}}{{/organizationsettings}}">
 	</div>
 	
   	<button class="ui inverted green button" type="submit"><i class="plus icon"></i>Submit</button>

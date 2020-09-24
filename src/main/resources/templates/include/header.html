@@ -3,32 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Messagerie</title>
+    <!-- My CSS -->
     <link rel="stylesheet" type="text/css" href="/style.css">
     <!-- You MUST include jQuery before Fomantic -->
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.js"></script>
+	 <!-- My Javascript -->
+	<script type="text/javascript" src="/javascript.js"></script>
 	 
+	 <!--PERSONAL SCRIPT JavaScript-->
     <script type="text/javascript">
     	$(document).ready(function(){
     		$('.message .close').on('click', function() {
     			$(this).closest('.message').transition('fade');
     		});
     	});
-    	function hideConfirm() {
-    		document.getElementById("messageConfirmDelete").style.display = "none";
-    	}
-
-    	function confirmDelete(name, id) {
-    		document.getElementById("messageConfirmDelete").style.display = "block";
-    		// demander une explication précise au prof' ?
-    		document.getElementById("confirmDeletingButton").onclick = function() { window.location = "/orga/delete/" + id; };
-    		document.getElementById("name").innerHTML = name;
-    	}
-    	
-    	function goBackButton() {
-    		  window.history.back();
-    		}
     </script>
 </head>
 <body>
