@@ -21,3 +21,7 @@ td.flex {
 form button {
 	width: 10em;
 }
+
+#idInput {
+	color: #ababab;
+}

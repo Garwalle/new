@@ -1,7 +1,13 @@
 {{> include/header}}
-
 {{#organization}}
-<h1>Organization : {{name}}</h1>
+
+<h1 style="margin:1em;">Organization : {{name}}</h1>
+
+<div>
+	<button class="ui icon inverted green button"  onclick="window.location='/orga/new';"><i class="plus icon"></i></button>
+	<button class="ui icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';;"><i class="pen icon"></i></button>
+	<button class="ui icon inverted red button" onclick="confirmDelete('{{name}}','{{id}}');"><i class="close icon"></i></button>
+</div>
 
 <table class="ui inverted celled fixed table">
 	<tbody>
@@ -32,7 +38,22 @@
 	</tbody>
 </table>
 
-<button style="width:10em;" class="ui inverted blue button" onclick="window.location='/orga/';"><i class="arrow left icon"></i>Go back</button>
-{{/organization}}
+<button style="width:10em;margin-bottom:2em;" class="ui inverted blue button" onclick="goBackButton();"><i class="arrow left icon"></i>Go back</button>
 
+<div style="display:none; width:60vh;" id="messageConfirmDelete">
+	<div class="ui icon negative message">
+		<i class="close icon" onclick="hideConfirm()"></i>
+		<i class="dizzy outline icon"></i>
+		<div class="content">
+			<div class="header">Are you sure ?</div>
+			<p>Are you sure you want to delete <b id="name">'?</b></p>
+			<div class="end">
+				<button onclick="hideConfirm()" class="ui button"><i class="circle outline icon"></i>No</button>
+				<button id="confirmDeletingButton" class="ui red button"><i class="check circle icon"></i>Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+{{/organization}}
 {{> include/footer}}
