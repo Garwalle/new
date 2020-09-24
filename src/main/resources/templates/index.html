@@ -1,5 +1,5 @@
 {{> include/header}}
-<h1><i class="broadcast tower icon"></i>SpringBoot TD2 :</h1><br>
+<h1 style="padding:1em;"><i class="broadcast tower icon"></i>SpringBoot TD2 :</h1>
 
 <table class="ui inverted fixed table">
 	<thead>
@@ -18,8 +18,8 @@
 		<td class="flex" data-label="Aliases"><div>{{#aliases}}{{.}}{{/aliases}}</div>
 			<div class="end">
 				<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}';"><i class="hand point up outline icon"></i></button>
-				<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';"><i class="pen icon"></i></button>
-				<button class="circular ui small icon inverted red button"  onclick="window.location='/orga/delete/{{id}}';"><i class="close icon"></i></button>
+				<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';;"><i class="pen icon"></i></button>
+				<button class="circular ui small icon inverted red button" onclick="confirmDelete('{{name}}','{{id}}');"><i class="close icon"></i></button>
 			</div>
 		</td>
 	</tr>
@@ -40,4 +40,18 @@
 		</tr>
 	</tfoot>
 </table>
+<div style="display:none; width:60vh;" id="messageConfirmDelete">
+	<div class="ui icon negative message">
+		<i class="close icon" onclick="hideConfirm()"></i>
+		<i class="dizzy outline icon"></i>
+		<div class="content">
+			<div class="header">Are you sure ?</div>
+			<p>Are you sure you want to delete <b id="name">'?</b></p>
+			<div class="end">
+				<button onclick="hideConfirm()" class="ui button"><i class="circle outline icon"></i>No</button>
+				<button id="confirmDeletingButton" class="ui red button"><i class="check circle icon"></i>Yes</button>
+			</div>
+		</div>
+	</div>
+</div>
 {{> include/footer}}
