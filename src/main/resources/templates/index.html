@@ -1,22 +1,29 @@
 {{> include/header}}
-<h1 style="margin:1em;"><i class="broadcast tower icon"></i>SpringBoot TD2 :</h1>
 
-<table class="ui inverted fixed table">
+<h1 onclick="window.location='/orga/'"><i class="broadcast tower icon"></i>SpringBoot TD2 :</h1>
+
+<table class="ui inverted table">
+<tbody>
+<tr>
+<td colspan="3">
+<table class="ui selectable inverted table">
 	<thead>
-		<tr><th>Id</th>
+		<tr><th style="width:3em;">Id</th>
 		<th>Name</th>
 		<th>Domain</th>
 		<th>Aliases</th>
+		<th style="width:10em;"></th>
 		</tr>
 	</thead>
 	<tbody>
 	{{#organizations}}
 	<tr>
-		<td data-label="Id">{{id}}</td>
-		<td data-label="Name">{{name}}</td>
-		<td data-label="Domain">{{#domain}}{{.}}{{/domain}}</td>
-		<td class="flex" data-label="Aliases"><div>{{#aliases}}{{.}}{{/aliases}}</div>
-			<div class="end">
+		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{id}}</td>
+		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{name}}</td>
+		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{#domain}}{{.}}{{/domain}}</td>
+		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{#aliases}}{{.}}{{/aliases}}</td>
+		<td>
+			<div>
 				<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}';"><i class="hand point up outline icon"></i></button>
 				<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';;"><i class="pen icon"></i></button>
 				<button class="circular ui small icon inverted red button" onclick="confirmDelete('{{name}}','{{id}}');"><i class="close icon"></i></button>
@@ -25,54 +32,48 @@
 	</tr>
 	{{/organizations}}
 	</tbody> 
-	<tfoot class="full-width">
+	<tfoot>
 		<tr>
-			<th>
-				<form action="/orga/">
-					<div class="ui icon input">
-						<i class="search icon"></i> <input class="search" type="text" placeholder="Search" name="keyword">
-					</div>
-				</form>
-			</th>
-			<th colspan="3">
-				<button class="ui inverted green right floated button"  onclick="window.location='/orga/new';"><i class="plus icon"></i>New organization</button>
+			<th  colspan="5">
+				<div id="tfootflex">
+					<form action="/orga/">
+						<div class="ui icon input">
+							<i class="search icon"></i> <input class="search" type="text" placeholder="Search" name="searched">
+						</div>
+					</form>
+					<button class="ui inverted green button"  onclick="window.location='/orga/new';"><i class="plus icon"></i>New organization</button>
+				</div>
 			</th>
 		</tr>
 	</tfoot>
 </table>
 </td>
 </tr>
+{{#orgaDetail}}
 <tr class="noborder">
 <td colspan="3">
 <table class="ui basic compact inverted fixed table">
 	<thead>
 		<tr>
-			<td class="bold">test</td>
-			<td class="bold">test</td>
-			<td class="bold">test</td>
+			<td class="bold">Groups ({{groupesSize}})</td>
+			<td class="bold">Settings (0)</td>
+			<td class="bold">Users ({{usersSize}})</td>
 		</tr>
 		
 	</thead>
 	<tbody>
 		<tr>
-			<td>test</td>
-			<td>test</td>
-			<td>test</td>
-		</tr>
-		<tr>
-			<td>test</td>
-			<td>test</td>
-			<td>test</td>
+			<td>{{#groupes}}{{name}}<br>{{/groupes}}</td>
+			<td>{{#organizationsettings}}{{.}}<br>{{/organizationsettings}}</td>
+			<td>{{#users}}{{firstName}}<br>{{/users}}</td>
 		</tr>
 	</tbody>
 </table>
 </td>
 </tr>
+{{/orgaDetail}}
 </tbody>
 </table>
-
-
-
 
 <div style="display:none; width:60vh;" id="messageConfirmDelete">
 	<div class="ui icon red message">
@@ -80,7 +81,7 @@
 		<i class="dizzy outline icon"></i>
 		<div class="content">
 			<div class="header">Are you sure ?</div>
-			<p>Are you sure you want to delete <b id="name">'?</b></p>
+			<p>Are you sure you want to delete <b id="orgaName">'?</b></p>
 			<div class="end">
 				<button onclick="hideConfirm()" class="ui inverted secondary button"><i class="circle outline icon"></i>No</button>
 				<button id="confirmDeletingButton" class="ui inverted red button"><i class="check circle icon"></i>Yes</button>

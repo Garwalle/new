@@ -18,4 +18,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query("UPDATE User u set u.organization = null WHERE u.organization = :organization")
 	void updateUserSetOrganization(@Param("organization") Organization organization);
+	
+	@Query("SELECT u FROM User u WHERE u.organization = :orgaDetail")
+	List<User> findUserOrganization(@Param("orgaDetail") Organization orgaDetail);
 }

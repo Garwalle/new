@@ -11,19 +11,32 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-     
-    @ManyToOne
-    private Organization organization;
-    
-    @ManyToMany(mappedBy="users")
-    private List<Groupe> groupes;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
+
+	@ManyToOne
+	private Organization organization;
+
+	@ManyToMany(mappedBy = "users")
+	private List<Groupe> groupes;
+
+	public User() {
+		this(null);
+	}
+
+	public User(Organization organization) {
+		this(organization,"unamed user");
+	}
+
+	public User(Organization organization, String firstName) {
+		this.organization = organization;
+		this.firstName = firstName;
+	}
 
 	public int getId() {
 		return id;
@@ -75,6 +88,6 @@ public class User {
 
 	@Override
 	public String toString() {
-		return firstName + " ";
+		return firstName;
 	}
 }

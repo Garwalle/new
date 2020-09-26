@@ -26,7 +26,7 @@ import com.martin.td2.repositories.OrgaRepository;
 import com.martin.td2.repositories.UserRepository;
 
 @Controller
-@RequestMapping("/orga")
+@RequestMapping(value={"/orga","/orgas"})
 public class mainController {
 	@Autowired
 	private OrgaRepository orgaRepo;
@@ -37,17 +37,32 @@ public class mainController {
 	@Autowired
 	private GroupeRepository groupeRepo;
 	
-	@GetMapping(value={"","/","index"})
-	public String index(Model model, @Param("keyword") String keyword) {
-		if (keyword != null) {
-			List<Organization> organizations = orgaRepo.search(keyword);
+	@GetMapping(value={"","/","index","/{idForDetail}"})
+	public String index(Model model, @Param("searched") String searched, @PathVariable(required = false) Integer idForDetail) {
+		if (searched != null) {
+			List<Organization> organizations = orgaRepo.search(searched);
 			model.addAttribute("organizations", organizations);
 			return "index";
+		}
+		if (idForDetail != null) {
+			Organization orgaDetail = orgaRepo.findByIdInteger(idForDetail);
+			List<User> usersOrgaDetail = userRepo.findUserOrganization(orgaDetail);
+			List<Groupe> groupesOrgaDetail = groupeRepo.findGroupeOrganization(orgaDetail);
+			int usersSize = usersOrgaDetail.size();
+			int groupesSize = groupesOrgaDetail.size();
+			int biggestSize = usersSize;
+			if (usersSize < groupesSize) {
+				biggestSize = groupesSize;
+			}
+			model.addAttribute("usersSize", usersSize);
+			model.addAttribute("groupesSize", groupesSize);
+			model.addAttribute("biggestSize", biggestSize);
+			model.addAttribute("orgaDetail", orgaDetail);
+			
 		}
 		List<Organization> organizations = orgaRepo.findAll();
 		List<User> users = userRepo.findAll();
 		model.addAttribute("organizations", organizations);
-		model.addAttribute("users", users);
 		return "index";
 	}
 	
@@ -71,15 +86,24 @@ public class mainController {
 		}
 		return "Organisation non trouvée";
 	}
-	@GetMapping("newuser/{userName}/{orgaName}")
-	public @ResponseBody String addUserInOrga(@PathVariable String userName,@PathVariable String orgaName) {
+	@GetMapping("newuser/{userFirstName}/{orgaName}")
+	public @ResponseBody String addUserInOrga(@PathVariable String userFirstName,@PathVariable String orgaName) {
 		Optional<Organization> optional = orgaRepo.findByName(orgaName);
 		if(optional.isPresent()) {
-			User user = new User();
-			user.setFirstName(userName);
-			user.setOrganization(optional.get());
+			User user = new User(optional.get(),userFirstName);
 			userRepo.saveAndFlush(user);
-			return user + " ajoutée !";
+			return user.getFirstName() + " ajoutée !";
+		}
+		return "Organization " + orgaName + " don't exist !";
+	}
+	
+	@GetMapping("newgroupe/{groupeName}/{orgaName}")
+	public @ResponseBody String addGroupInOrga(@PathVariable String groupeName,@PathVariable String orgaName) {
+		Optional<Organization> optional = orgaRepo.findByName(orgaName);
+		if(optional.isPresent()) {
+			Groupe groupe = new Groupe(optional.get(),groupeName);
+			groupeRepo.saveAndFlush(groupe);
+			return groupe.getName() + " ajoutée !";
 		}
 		return "Organization " + orgaName + " don't exist !";
 	}
@@ -128,5 +152,21 @@ public class mainController {
 			orgaRepo.deleteById(id);
 		}
 		return new RedirectView("../");
+	}
+	
+	@GetMapping("details/{id}")
+	public String details(Model model, @Param("id") int id) {
+		/*
+		List<Organization> organizations = orgaRepo.search(keyword);
+		model.addAttribute("organizations", organizations);
+		return "index";
+		
+		List<Organization> organizations = orgaRepo.findAll();
+		List<User> users = userRepo.findAll();
+		model.addAttribute("organizations", organizations);
+		model.addAttribute("users", users);
+		*/
+		return "index";
+		
 	}
 }

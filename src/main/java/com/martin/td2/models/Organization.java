@@ -24,6 +24,9 @@ public class Organization {
     @OneToMany(mappedBy = "organization",cascade = CascadeType.PERSIST)
     private List<User> users;
     
+    @OneToMany(mappedBy = "organization",cascade = CascadeType.PERSIST)
+    private List<Groupe> groupes;
+    
     public Organization() {
 		this(null,null,null);
 	}
@@ -36,14 +39,9 @@ public class Organization {
 	}
 	
 	public Organization(String name, String domain,String aliases) {
-		this(name,domain,aliases,null);
-	}
-	
-	public Organization(String name, String domain,String aliases,String organizationsettings) {
 		this.name = name;
 		this.domain = domain;
 		this.aliases = aliases;
-		this.organizationsettings = organizationsettings;
 	}
 	
 	public int getId() {

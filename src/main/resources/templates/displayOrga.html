@@ -1,7 +1,7 @@
 {{> include/header}}
 {{#organization}}
 
-<h1 style="margin:1em;">Organization : {{name}}</h1>
+<h1>Organization : {{name}}</h1>
 
 <div>
 	<button class="ui icon inverted green button"  onclick="window.location='/orga/new';"><i class="plus icon"></i></button>
@@ -24,8 +24,12 @@
 			<td>{{#domain}}{{.}}{{/domain}}</td>
 		</tr>
 		<tr>
-			<td class="black">Group</td>
+			<td class="black">Aliases</td>
 			<td>{{#aliases}}{{.}}{{/aliases}}</td>
+		</tr>
+		<tr>
+			<td class="black">Groups</td>
+			<td>{{#groupes}}{{.}}{{/groupes}}</td>
 		</tr>
 		<tr>
 			<td class="black">Organizationsettings</td>

@@ -24,8 +24,21 @@ public class Groupe{
     private Organization organization;
      
     @ManyToMany
-    @JoinTable(name = "user_group")
+    @JoinTable(name = "user_groupe")
     private List<User> users;
+    
+    public Groupe() {
+    	this(null);
+    }
+    
+    public Groupe(Organization organization) {
+    	this(organization,"unamed group");
+    }
+    
+	public Groupe(Organization organization, String name) {
+		this.organization = organization;
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;
@@ -73,5 +86,10 @@ public class Groupe{
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }
