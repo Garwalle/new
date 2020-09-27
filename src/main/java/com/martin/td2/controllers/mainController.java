@@ -48,14 +48,18 @@ public class mainController {
 			Organization orgaDetail = orgaRepo.findByIdInteger(idForDetail);
 			List<User> usersOrgaDetail = userRepo.findUserOrganization(orgaDetail);
 			List<Groupe> groupesOrgaDetail = groupeRepo.findGroupeOrganization(orgaDetail);
+			
+			int orgaSettingsSize = 0;
 			int usersSize = usersOrgaDetail.size();
 			int groupesSize = groupesOrgaDetail.size();
 			int biggestSize = usersSize;
 			if (usersSize < groupesSize) {
 				biggestSize = groupesSize;
 			}
+			if (orgaDetail.getOrganizationsettings() != null && orgaDetail.getOrganizationsettings() != "") { orgaSettingsSize = 1; }
 			model.addAttribute("usersSize", usersSize);
 			model.addAttribute("groupesSize", groupesSize);
+			model.addAttribute("orgaSettingsSize", orgaSettingsSize);
 			model.addAttribute("biggestSize", biggestSize);
 			model.addAttribute("orgaDetail", orgaDetail);
 			
@@ -123,12 +127,13 @@ public class mainController {
 	}
 	
 	@PostMapping("editOrga/")
-	public RedirectView editOrga(@RequestParam int id,@RequestParam String name,@RequestParam String domain,@RequestParam String aliases) {
+	public RedirectView editOrga(@RequestParam int id,@RequestParam String name,@RequestParam String domain,@RequestParam String aliases,@RequestParam String orgasettings) {
 		Organization organization = orgaRepo.findById(id);
 		if((organization != null)) {
 			organization.setName(name);
 			organization.setDomain(domain);
 			organization.setAliases(aliases);
+			organization.setOrganizationsettings(orgasettings);
 			orgaRepo.saveAndFlush(organization);
 		}
 		return new RedirectView("../");

@@ -1,3 +1,5 @@
+// (Pure) Javascript
+
 function hideConfirm() {
 	document.getElementById("messageConfirmDelete").style.display = "none";
 }
@@ -13,6 +15,11 @@ function goBackButton() {
 	window.history.back();
 }
 
-function details(groupes) {
-	document.getElementById("groupes").textContent = groupes;
-}
+
+// Jquery (Javascript library)
+
+$(document).ready(function(){
+	//$("#test").click(function(){
+		//$("#test").text(maVar);
+	//});
+});

@@ -18,15 +18,15 @@
 	<tbody>
 	{{#organizations}}
 	<tr>
-		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{id}}</td>
-		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{name}}</td>
-		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{#domain}}{{.}}{{/domain}}</td>
-		<td onclick="window.location='/orga/{{id}}';details('{{users}}')">{{#aliases}}{{.}}{{/aliases}}</td>
+		<td onclick="window.location='/orga/{{id}}'">{{id}}</td>
+		<td onclick="window.location='/orga/{{id}}'">{{name}}</td>
+		<td onclick="window.location='/orga/{{id}}'">{{#domain}}{{.}}{{/domain}}</td>
+		<td onclick="window.location='/orga/{{id}}'">{{#aliases}}{{.}}{{/aliases}}</td>
 		<td>
 			<div>
-				<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}';"><i class="hand point up outline icon"></i></button>
-				<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}';;"><i class="pen icon"></i></button>
-				<button class="circular ui small icon inverted red button" onclick="confirmDelete('{{name}}','{{id}}');"><i class="close icon"></i></button>
+				<button class="circular ui small icon inverted button"  onclick="window.location='/orga/display/{{id}}'"><i class="hand point up outline icon"></i></button>
+				<button class="circular ui small icon inverted blue button"  onclick="window.location='/orga/edit/{{id}}'"><i class="pen icon"></i></button>
+				<button class="circular ui small icon inverted red button" onclick="confirmDelete('{{name}}','{{id}}')"><i class="close icon"></i></button>
 			</div>
 		</td>
 	</tr>
@@ -41,7 +41,7 @@
 							<i class="search icon"></i> <input class="search" type="text" placeholder="Search" name="searched">
 						</div>
 					</form>
-					<button class="ui inverted green button"  onclick="window.location='/orga/new';"><i class="plus icon"></i>New organization</button>
+					<button class="ui inverted green button"  onclick="window.location='/orga/new'"><i class="plus icon"></i>New organization</button>
 				</div>
 			</th>
 		</tr>
@@ -55,11 +55,10 @@
 <table class="ui basic compact inverted fixed table">
 	<thead>
 		<tr>
-			<td class="bold">Groups ({{groupesSize}})</td>
-			<td class="bold">Settings (0)</td>
-			<td class="bold">Users ({{usersSize}})</td>
+			<td class="bold">Groups ({{#groupesSize}}{{.}}{{/groupesSize}})</td>
+			<td class="bold">Settings ({{#orgaSettingsSize}}{{.}}{{/orgaSettingsSize}})</td>
+			<td class="bold">Users ({{#usersSize}}{{.}}{{/usersSize}})</td>
 		</tr>
-		
 	</thead>
 	<tbody>
 		<tr>
@@ -75,19 +74,5 @@
 </tbody>
 </table>
 
-<div style="display:none; width:60vh;" id="messageConfirmDelete">
-	<div class="ui icon red message">
-		<i class="close icon" onclick="hideConfirm()"></i>
-		<i class="dizzy outline icon"></i>
-		<div class="content">
-			<div class="header">Are you sure ?</div>
-			<p>Are you sure you want to delete <b id="orgaName">'?</b></p>
-			<div class="end">
-				<button onclick="hideConfirm()" class="ui inverted secondary button"><i class="circle outline icon"></i>No</button>
-				<button id="confirmDeletingButton" class="ui inverted red button"><i class="check circle icon"></i>Yes</button>
-			</div>
-		</div>
-	</div>
-</div>
 
 {{> include/footer}}
